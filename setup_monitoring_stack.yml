@@ -1,0 +1,41 @@
+---
+- name: Deploy Prometheus, Grafana, and Alertmanager
+  hosts: prometheus
+  become: true
+  tasks:
+    - name: Run Prometheus container
+      docker_container:
+        name: prometheus
+        image: prom/prometheus:latest
+        state: started
+        restart_policy: always
+        published_ports:
+          - "9090:9090"  # Prometheus default port
+        volumes:
+          - /mnt/prometheus:/prometheus
+        env:
+          TZ: "UTC"
+
+    - name: Run Grafana container
+      docker_container:
+        name: grafana
+        image: grafana/grafana:latest
+        state: started
+        restart_policy: always
+        published_ports:
+          - "3000:3000"  # Grafana default port
+        env:
+          TZ: "UTC"
+
+    - name: Run Alertmanager container
+      docker_container:
+        name: alertmanager
+        image: prom/alertmanager:latest
+        state: started
+        restart_policy: always
+        published_ports:
+          - "9093:9093"  # Alertmanager default port
+        volumes:
+          - /mnt/alertmanager:/alertmanager
+        env:
+          TZ: "UTC"

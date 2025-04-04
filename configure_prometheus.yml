@@ -1,0 +1,26 @@
+- name: Configure Prometheus Monitoring & Alerts
+  hosts: prometheus
+  become: true
+  tasks:
+  
+    - name: Copy Prometheus configuration
+      copy:
+        src: prometheus.yml
+        dest: /opt/prometheus/prometheus.yml
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Copy alert rules
+      copy:
+        src: alert.rules.yml
+        dest: /opt/prometheus/alert.rules.yml
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Restart Prometheus container
+      community.docker.docker_container:
+        name: prometheus
+        state: started
+        restart: true

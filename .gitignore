@@ -1,0 +1,42 @@
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore environment files
+.env
+*.env
+
+# Ignore logs
+*.log
+logs/
+log/
+
+# Ignore build and dependency directories
+node_modules/
+venv/
+__pycache__/
+*.pyc
+
+# Ignore Docker related files
+docker-compose.override.yml
+*.pid
+*.sock
+
+# Ignore Terraform files (if applicable)
+*.tfstate
+*.tfstate.backup
+.terraform/
+terraform.tfvars
+
+# Ignore Prometheus and Alertmanager data
+data/
+prometheus_data/
+alertmanager_data/
+
+# Ignore Grafana configurations (if storing sensitive data)
+grafana/data/
+grafana/logs/
+
+# Ignore any temporary files
+tmp/
+*.swp
